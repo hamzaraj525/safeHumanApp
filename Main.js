@@ -17,6 +17,7 @@ import {
   Platform,
   Linking,
 } from 'react-native';
+
 import Accordion from 'react-native-collapsible/Accordion';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import {Picker} from '@react-native-picker/picker';
@@ -171,7 +172,7 @@ export default class Main extends Component {
           colors={['#183F88', '#13235A', '#0E0A30']}
           style={styles.gradient}>
           <ScrollView
-            showsVerticalScrollIndicator={false}
+            showsVerticalScrollIndicator={true}
             style={{}}
             contentContainerStyle={{
               paddingBottom: '1090%',
@@ -274,15 +275,23 @@ export default class Main extends Component {
                 SECONDS
               </Text>
             </View>
-
-            <Image
+            <View
               style={{
-                width: '100%',
-                height: 110,
-              }}
-              source={require('./assert/progress.png')}
-            />
-
+                marginTop: '3%',
+                marginBottom: '10%',
+                // paddingHorizontal: '10%',
+                width: Dimensions.get('window').width,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Image
+                style={{
+                  width: 320,
+                  height: 100,
+                }}
+                source={require('./assert/progress.png')}
+              />
+            </View>
             <TouchableOpacity
               onPress={() => {
                 Linking.openURL(
@@ -360,57 +369,46 @@ export default class Main extends Component {
             <Text style={{marginTop: '8%', fontSize: 14, color: 'white'}}>
               Invest now, you will regret it.
             </Text>
-            <View
+
+            <TouchableOpacity
               style={{
-                marginTop: '8%',
-                justifyContent: 'center',
-
-                flexDirection: 'row',
+                width: '20%',
+                // backgroundColor: 'red',
                 alignItems: 'center',
+                justifyContent: 'center',
+                height: 56,
+              }}
+              onPress={() => {
+                this.setState({show: true});
               }}>
-              <TouchableOpacity
+              <Image
                 style={{
-                  width: '34%',
-
-                  alignItems: 'center',
-                  justifyContent: 'center',
-
-                  height: 58,
+                  width: 117,
+                  height: 50,
                 }}
-                onPress={() => {
-                  this.setState({show: true});
-                }}>
-                <Image
-                  style={{
-                    width: 140,
-                    height: 40,
-                  }}
-                  source={require('./assert/whtPpr.png')}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
+                source={require('./assert/whtPpr.png')}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '38%',
+                height: 55,
+              }}
+              onPress={() => {
+                Linking.openURL(
+                  'https://dxsale.app/app/v3/defipresale?saleID=715&chain=BSC',
+                );
+              }}>
+              <Image
                 style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-
-                  width: '38%',
-
-                  height: 55,
+                  width: 140,
+                  height: 40,
                 }}
-                onPress={() => {
-                  Linking.openURL(
-                    'https://dxsale.app/app/v3/defipresale?saleID=715&chain=BSC',
-                  );
-                }}>
-                <Image
-                  style={{
-                    width: 140,
-                    height: 40,
-                  }}
-                  source={require('./assert/join.png')}
-                />
-              </TouchableOpacity>
-            </View>
+                source={require('./assert/join.png')}
+              />
+            </TouchableOpacity>
 
             <View
               style={{
@@ -894,7 +892,10 @@ export default class Main extends Component {
                 </Text>
               </View>
               <Image
-                style={{width: '100%', height: 110}}
+                style={{
+                  width: 295,
+                  height: 100,
+                }}
                 source={require('./assert/prog.png')}
               />
               <TouchableOpacity
@@ -1086,7 +1087,7 @@ export default class Main extends Component {
               </Text>
               <Image
                 style={{
-                  width: 330,
+                  width: 320,
                   height: 270,
                 }}
                 source={require('./assert/tddd.jpg')}
@@ -1103,7 +1104,7 @@ export default class Main extends Component {
               </Text>
               <Image
                 style={{
-                  width: 330,
+                  width: 320,
                   height: 270,
                 }}
                 source={require('./assert/td3.jpg')}
@@ -2287,7 +2288,8 @@ export default class Main extends Component {
             <View
               style={{
                 width: Dimensions.get('window').width,
-                backgroundColor: 'blue',
+
+                padding: '5%',
                 height: '8%',
               }}>
               <LinearGradient
@@ -2336,8 +2338,8 @@ export default class Main extends Component {
                   style={{
                     color: 'white',
                     marginTop: '7%',
-                    alignSelf: 'flex-start',
-                    paddingHorizontal: '6%',
+                    // alignSelf: 'flex-start',
+                    // paddingHorizontal: '6%',
                     fontSize: 14,
                   }}>
                   Crypto-currencies are now a widely accepted as a legitimate
@@ -2348,7 +2350,6 @@ export default class Main extends Component {
                 <View
                   style={{
                     marginTop: '10%',
-                    paddingHorizontal: '4%',
                     flexDirection: 'row',
                   }}>
                   <Image
@@ -2372,8 +2373,9 @@ export default class Main extends Component {
 
                 <View
                   style={{
+                    width: Dimensions.get('window').width,
                     marginTop: '10%',
-                    paddingHorizontal: '4%',
+                    // paddingHorizontal: '4%',
                     flexDirection: 'row',
                   }}>
                   <Image
@@ -2398,7 +2400,7 @@ export default class Main extends Component {
                 <View
                   style={{
                     marginTop: '10%',
-                    paddingHorizontal: '4%',
+
                     flexDirection: 'row',
                   }}>
                   <Image
@@ -2424,8 +2426,7 @@ export default class Main extends Component {
                   style={{
                     marginTop: '8%',
                     justifyContent: 'center',
-
-                    flexDirection: 'row',
+                    flexDirection: 'column',
                     alignItems: 'center',
                   }}>
                   <TouchableOpacity
@@ -2433,7 +2434,6 @@ export default class Main extends Component {
                       width: '40%',
                       alignItems: 'center',
                       justifyContent: 'center',
-
                       height: 60,
                     }}
                     onPress={() => {}}>
@@ -2472,7 +2472,7 @@ export default class Main extends Component {
                     style={{
                       marginTop: '8%',
                       width: 300,
-                      height: 340,
+                      height: 345,
                     }}
                     source={require('./assert/mobile_app8.png')}
                   />
