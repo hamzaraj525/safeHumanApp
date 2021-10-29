@@ -2509,10 +2509,7 @@ export default class Main extends Component {
                   marginTop: '5%',
                   alignItems: 'center',
                 }}>
-                <View
-                  style={{
-                    width: Dimensions.get('window').width,
-                  }}>
+                <View style={{width: Dimensions.get('window').width}}>
                   <Accordion
                     sections={SECTIONS}
                     activeSections={this.state.activeSections}
