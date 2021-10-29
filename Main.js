@@ -14,6 +14,7 @@ import {
   View,
   Pressable,
   Clipboard,
+  Platform,
   Linking,
 } from 'react-native';
 import Accordion from 'react-native-collapsible/Accordion';
@@ -49,21 +50,25 @@ const SECTIONS = [
       'Only the SafeHuman website can provide reliable and verifiable information.',
   },
 ];
-
+const White = require('./assert/WhitePaper.pdf');
+const One = require('./assert/Onepaper.pdf');
 export default class Main extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       showTheThing: true,
       inp: '',
+      inp2: '',
+      inp3: '',
       comment: '',
       val: '',
-      user: '',
       activeSections: [],
       clipboardText: '',
       textInputText: '0x72a59e1Fe77f0E25Fadc502D0803464d27a3785A',
       show: false,
       showText: true,
+      user: require('./assert/WhitePaper.pdf'),
     };
   }
 
@@ -73,10 +78,6 @@ export default class Main extends Component {
     }, 1000);
     return () => clearInterval(interval);
   }
-
-  updateUser = va => {
-    this.setState({user: va});
-  };
 
   _renderSectionTitle = section => {
     return (
@@ -151,8 +152,6 @@ export default class Main extends Component {
   };
 
   render() {
-    const White = require('./assert/WhitePaper.pdf');
-    const One = require('./assert/Onepaper.pdf');
     // const White = {
     //   uri: 'https://firebasestorage.googleapis.com/v0/b/demoprooject.appspot.com/o/WhitePaper.pdf?alt=media&token=b55b56af-d94a-4162-8691-b212621586f3',
     // };
@@ -1053,7 +1052,13 @@ export default class Main extends Component {
                   alignItems: 'center',
                 }}
                 onPress={() => {
-                  this.setTextIntoClipboard;
+                  if (Platform == 'android') {
+                    ToastAndroid.show('Copied', ToastAndroid.SHORT);
+                    this.setTextIntoClipboard;
+                  } else {
+                    this.setTextIntoClipboard;
+                    alert('Copied');
+                  }
                 }}>
                 <Image
                   style={{width: 50, height: 50}}
@@ -1959,7 +1964,9 @@ export default class Main extends Component {
                 <Picker
                   selectedValue={this.state.user}
                   mode="dropdown"
-                  onValueChange={this.updateUser}
+                  onValueChange={va => {
+                    this.setState({user: va});
+                  }}
                   style={{height: 40}}>
                   <Picker.Item label="Whitepaper" value={White} />
                   <Picker.Item label="Onepaper" value={One} />
@@ -1993,7 +2000,7 @@ export default class Main extends Component {
                   this.setState({show: false});
                 }}
                 visible={this.state.show}>
-                <View
+                <SafeAreaView
                   style={{
                     flex: 1,
                     width: Dimensions.get('window').width,
@@ -2001,6 +2008,7 @@ export default class Main extends Component {
                     backgroundColor: '#000000aa',
                   }}>
                   {/* <View style={styles.container}> */}
+
                   <Pdf
                     source={this.state.user}
                     onLoadComplete={(numberOfPages, filePath) => {
@@ -2018,7 +2026,7 @@ export default class Main extends Component {
                     style={styles.pdf}
                   />
                   {/* </View> */}
-                </View>
+                </SafeAreaView>
               </Modal>
             </View>
             <View
@@ -2356,7 +2364,7 @@ export default class Main extends Component {
                     style={{
                       fontWeight: 'bold',
                       color: 'white',
-                      fontSize: 15,
+                      fontSize: 14,
                     }}>
                     Compatible with Multiple Devices
                   </Text>
@@ -2381,7 +2389,7 @@ export default class Main extends Component {
                     style={{
                       fontWeight: 'bold',
                       color: 'white',
-                      fontSize: 15,
+                      fontSize: 14,
                     }}>
                     SafeHuman Specializes in Technology that Is Transformational
                     for New Economies
@@ -2406,7 +2414,7 @@ export default class Main extends Component {
                     style={{
                       fontWeight: 'bold',
                       color: 'white',
-                      fontSize: 15,
+                      fontSize: 14,
                     }}>
                     Buy & Sell Your Coins Online
                   </Text>
@@ -2428,9 +2436,7 @@ export default class Main extends Component {
 
                       height: 60,
                     }}
-                    onPress={() => {
-                      alert('pressed');
-                    }}>
+                    onPress={() => {}}>
                     <Image
                       style={{
                         width: 140,
@@ -2447,9 +2453,7 @@ export default class Main extends Component {
                       width: '40%',
                       height: 60,
                     }}
-                    onPress={() => {
-                      alert('pressed');
-                    }}>
+                    onPress={() => {}}>
                     <Image
                       style={{
                         width: 120,
@@ -2657,7 +2661,6 @@ export default class Main extends Component {
                     marginTop: '4%',
                     width: '90%',
                     height: '7%',
-
                     borderRadius: 2,
                     borderWidth: 2,
                   }}
@@ -2666,7 +2669,7 @@ export default class Main extends Component {
                   placeholderTextColor="grey"
                 />
                 <TextInput
-                  value={this.state.inp}
+                  value={this.state.inp2}
                   style={{
                     marginTop: '1%',
                     width: '90%',
@@ -2675,12 +2678,12 @@ export default class Main extends Component {
                     borderRadius: 2,
                     borderWidth: 2,
                   }}
-                  onChangeText={inp => this.setState({inp})}
+                  onChangeText={inp2 => this.setState({inp2})}
                   placeholder="Enter Emal *"
                   placeholderTextColor="grey"
                 />
                 <TextInput
-                  value={this.state.inp}
+                  value={this.state.inp3}
                   style={{
                     marginTop: '1%',
                     width: '90%',
@@ -2689,16 +2692,14 @@ export default class Main extends Component {
                     borderRadius: 2,
                     borderWidth: 2,
                   }}
-                  onChangeText={inp => this.setState({inp})}
+                  onChangeText={inp3 => this.setState({inp3})}
                   placeholder="Message *"
                   placeholderTextColor="grey"
                 />
                 <TouchableOpacity
                   style={[
                     styles.buttonGPlusStyle,
-                    {
-                      width: '40%',
-                    },
+                    {backgroundColor: 'white', width: '40%'},
                   ]}
                   activeOpacity={0.5}>
                   <Image
@@ -2725,7 +2726,11 @@ export default class Main extends Component {
                 </View>
                 <Pressable
                   onPress={() => {
-                    Linking.openURL('tel:${+61400000000}');
+                    if (Platform.OS == 'android') {
+                      Linking.openURL('tel:${+61400000000}');
+                    } else {
+                      Linking.openURL('telprompt:${+61400000000}');
+                    }
                   }}
                   style={{
                     flexDirection: 'row',
@@ -2744,18 +2749,29 @@ export default class Main extends Component {
                     Linking.openURL('mailto:info@safehuman.io')
                       .then(supported => {
                         if (!supported) {
+                          if (Platform.OS == 'android') {
+                            ToastAndroid.show(
+                              'URL not working',
+                              ToastAndroid.SHORT,
+                            );
+                          } else {
+                            alert('URL not working');
+                          }
                           // console.log('Cant handle url');
-                          ToastAndroid.show(
-                            'URL not working',
-                            ToastAndroid.SHORT,
-                          );
                         } else {
                           return Linking.openURL('mailto:info@safehuman.io');
                         }
                       })
                       .catch(err => {
                         // console.error('An error occurred', err);
-                        ToastAndroid.show('App not found', ToastAndroid.SHORT);
+                        if (Platform.OS == 'android') {
+                          ToastAndroid.show(
+                            'App not found',
+                            ToastAndroid.SHORT,
+                          );
+                        } else {
+                          alert('App not found');
+                        }
                       });
                   }}
                   style={{

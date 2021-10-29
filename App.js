@@ -16,6 +16,7 @@ import {startClock} from 'react-native-reanimated';
 const Stack = createNativeStackNavigator();
 
 export default class App extends Component {
+  
   render() {
     return (
       <NavigationContainer>
